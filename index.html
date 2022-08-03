@@ -68,12 +68,18 @@
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 }).addTo(map);
 
-$.getJSON(“Assignment7.geojson”,function(data){L.geoJson(data, {
-	pointToLayer: function(feature, 42.042805, -87.678975) {
-		'return new' L.CircleMarker(42.042805, -87.678975,
+$.getJSON(“Geojsons.geojson”,function(data){
+// load geojson layer
+	L.geoJson(data, {
+		// add a property - pointToLayer
+	pointToLayer: function(feature, 41.8781, -87.6298) {
+		L.CircleMarker(41.8781, -87.6298,
 			{ 	radius: 5,
 				fillOpacity: 1
-				fillColor: 'pink'});
+				fillColor: 'pink',});
+				// add popups
+				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
+				);
 		}
 	}).addTo(map);
 });
