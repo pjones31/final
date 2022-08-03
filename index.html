@@ -64,19 +64,23 @@
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 }).addTo(map);
 
-$.getJSON(“Geojsons.geojson”,function(data){
+$.getJSON(“EarlyLearningPrograms_Chicago.geojson”,function(data){
 // load geojson layer
-	L.geoJson(data, {
+	L.geoJSON(data, {
 		// add a property - pointToLayer
-	pointToLayer: function(feature, 41.8781, -87.6298) {
-		L.CircleMarker(41.8781, -87.6298,
+	pointToLayer: function(feature, latLng) {	
+	// variable
+		var agesColor;
+		var agesServed = feature.properties.Ages_3_5;
+		if (agesServed == "true") agesColor = 'green'
+		else agesColor = 'red'	
+		L.CircleMarker(latLng,
 			{ 	radius: 5,
-				fillOpacity: 1
-				fillColor: 'pink',});
+				fillOpacity: 1,
+				fillColor: 'agesColor',
+				weight: .7,});
 				// add popups
 				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
-				);
-		}
 	}).addTo(map);
 });
 
