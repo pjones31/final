@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+	<head>
+
+		<title>Explore Chicago on Foot or by Bike</title>
+		<link rel="stylesheet" href="style.css">
+	<!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<!-- Second Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
+
+<!-- Leaflet Code -->
+ 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   		crossorigin=""/>
+
+   		 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   		crossorigin=""></script>
+
+   		<!-- Leaflet basemap -->
+   		 <script src="http://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+ 		 <script src="js/leaflet-providers.js"></script>
+
+ 		<!--  javascript text -->
+ 		<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+
+	</head>
+
+	<body> 
+
+	<div class="intro1">
+		<h1>Chicago Parks and Bike Routes</h1>
+		<div class="intro2">
+		<h2>This webpage provides the locations of the City's parks and bike routes.</h2>
+		<!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+		</div>
+
+	<div class="info">
+		<p>The City of Chicago has over 600 parks to walk and play in, more than 200 miles of bike lanes, and many more sites to visit. These are more than a great way to stay active but are fun ways to explore Chicago's 78 neighborhoods!</p>
+		<p>Learn more about how to bike safely <a href="https://secureservercdn.net/198.71.233.46/40f.4ba.myftpupload.com/wp-content/uploads/2022/05/2022_Chicago-Bike-Map.pdf">here.</a></p></div>
+
+</div>
+
+	<div id="map"></div>
+
+<!-- geoJSON data -->
+	$.getJSON("assignment #7.geojson",function(data){L.geoJson(dta).addTo(map);});
+		
+<script> 
+	// intialize map
+	var map=L.map('map').setView([41.965, -87.635], 11);
+
+	// add basemap
+	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+}).addTo(map);
+
+$.getJSON(“Assignment7.geojson”,function(data){L.geoJson(data, {
+	pointToLayer: function(feature, 42.042805, -87.678975) {
+		'return new' L.CircleMarker(42.042805, -87.678975,
+			{ 	radius: 5,
+				fillOpacity: 1
+				fillColor: 'pink'});
+		}
+	}).addTo(map);
+});
+
+
+
+</script>
+
+	</body>
+</html>
