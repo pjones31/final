@@ -37,9 +37,9 @@
 	<body> 
 
 	<div class="intro1">
-		<h1>Chicago Parks and Bike Routes</h1>
+		<h1>Chicago Public Preschool Centers </h1>
 		<div class="intro2">
-		<h2>This webpage provides the locations of the City's parks and bike routes.</h2>
+		<h2>This webpage explores access to Chicago's public preschool centers with elevated birth rates.</h2>
 		<!-- Google font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,8 +48,8 @@
 		</div>
 
 	<div class="info">
-		<p>The City of Chicago has over 600 parks to walk and play in, more than 200 miles of bike lanes, and many more sites to visit. These are more than a great way to stay active but are fun ways to explore Chicago's 78 neighborhoods!</p>
-		<p>Learn more about how to bike safely <a href="https://secureservercdn.net/198.71.233.46/40f.4ba.myftpupload.com/wp-content/uploads/2022/05/2022_Chicago-Bike-Map.pdf">here.</a></p></div>
+		<p>The City of Chicago public school system has nearly 700 preschool centers. Yet, only 150 of them serve children under the age of 3. Limited access to affordable childcare for children under 3 causes undue hardship for parents. </p>
+		<p>Learn more about Chicago public preschool centers <a href="https://www.cps.edu/schools/grade-levels-served/pre-k/">here.</a></p></div>
 
 </div>
 
@@ -66,14 +66,14 @@
 
 $.getJSON(“EarlyLearningPrograms_Chicago.geojson”,function(data){
 // load geojson layer
-	L.geoJSON(data, {
+	L.geoJson(data, {
 		// add a property - pointToLayer
 	pointToLayer: function(feature, latLng) {	
 	// variable
 		var agesColor;
-		var agesServed = feature.properties.Ages_3_5;
-		if (agesServed == "true") agesColor = 'green'
-		else agesColor = 'red'	
+		var agesServed = feature.properties.Ages_0_3;
+		if ( agesServed == "true" ) agesColor = 'green';
+		else agesColor = "red";	
 		L.CircleMarker(latLng,
 			{ 	radius: 5,
 				fillOpacity: 1,
@@ -82,6 +82,30 @@ $.getJSON(“EarlyLearningPrograms_Chicago.geojson”,function(data){
 				// add popups
 				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
 	}).addTo(map);
+
+}
+
+	// second property - polygon Layer
+$.getJSON("ChicagoHardshipIndex.geojson",function(data){
+	L.geoJson(data {
+		style: function(feature){
+			var conditionalColor;
+			var hardship = feature.properties.HI;
+			if ( hardship > 80 ) conditionalColor = "#54278f";
+			else if ( hardship > 60 ) conditionalColor = "#756bb1";
+			else if ( hardship > 40 ) conditionalColor = "#9e9ac8";
+			else if ( hardship > 20 ) conditionalColor = "#bcbddc";
+			else if ( hardship > 0 ) conditionalColor = "#dadaeb";
+				// no data
+			return (	color: "gray",
+						weight: 1,
+						fillColor: conditionalColor,
+						fillOpacity: 1, };
+		)},
+		onEachFeature: function( feature, Layer ){
+			layer.bindPopup("Neighborhodd: " + feature.properties.CA + "<br/>" + Hardship Index Score: + feature.properties.HI )}
+		}
+	}).addTo(map).bringToback();
 });
 
 
