@@ -3,7 +3,7 @@
 
 	<head>
 
-		<title>Explore Chicago on Foot or by Bike</title>
+		<title>CPS in proximity to vulnerable COVID areas in the City</title>
 		<link rel="stylesheet" href="style.css">
 	<!-- Google font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,9 +37,9 @@
 	<body> 
 
 	<div class="intro1">
-		<h1>Chicago Public Preschool Centers </h1>
+		<h1>CPS and Chicago zip codes vulnerable to COVID </h1>
 		<div class="intro2">
-		<h2>This webpage explores access to Chicago public preschool centers with elevated birth rates.</h2>
+		<h2>Exploring public school locations in Chicago with zip codes that are vulnerable to COVID</h2>
 		<!-- Google font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,8 +48,8 @@
 		</div>
 
 	<div class="info">
-		<p>The City of Chicago public school system has nearly 700 preschool centers. Yet, only 150 of them serve children under the age of 3. Limited access to affordable childcare for children under 3 causes undue hardship for parents. </p>
-		<p>Learn more about Chicago public preschool centers <a href="https://www.cps.edu/schools/grade-levels-served/pre-k/">here.</a></p></div>
+		<p>There are 649 Chicago Public Schools in the City of Chicago.</p>
+		<p>Learn more about health and wellness at CPS <a href="hhttps://www.cps.edu/services-and-supports/health-and-wellness/">here.</a></p></div>
 
 </div>
 
@@ -64,7 +64,7 @@
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 }).addTo(map);
 
-$.getJSON(“EarlyLearningPrograms_Chicago.geojson”,function(data){
+$.getJSON("CPS_Locations.geojson",function(data){
 // load geojson layer
 	L.geoJson(data, {
 		// add a property - pointToLayer
@@ -78,24 +78,24 @@ $.getJSON(“EarlyLearningPrograms_Chicago.geojson”,function(data){
 			{ 	radius: 5,
 				fillOpacity: 1,
 				fillColor: 'agesColor',
-				weight: .7,});
+				weight: .7,
+			});
+			},
 				// add popups
 				onEachFeature: function(feature, layer){layer.bindPopup(feature.properties.Site_Name)}
 	}).addTo(map);
 
-}
-
 	// second property - polygon Layer
-$.getJSON("ChicagoHardshipIndex.geojson",function(data){
+$.getJSON("COVID_Vulnerability_Index_Zip.geojson",function(data){
 	L.geoJson(data {
 		style: function(feature){
 			var conditionalColor;
-			var hardship = feature.properties.HI;
-			if ( hardship > 80 ) conditionalColor = "#54278f";
-			else if ( hardship > 60 ) conditionalColor = "#756bb1";
-			else if ( hardship > 40 ) conditionalColor = "#9e9ac8";
-			else if ( hardship > 20 ) conditionalColor = "#bcbddc";
-			else if ( hardship > 0 ) conditionalColor = "#dadaeb";
+			var vulnerable = feature.properties.I;
+			if ( vulnerable > 550 ) conditionalColor = "#54278f";
+			else if ( vulnerable > 450 ) conditionalColor = "#756bb1";
+			else if ( vulnerable > 300 ) conditionalColor = "#9e9ac8";
+			else if ( vulnerable > 150 ) conditionalColor = "#bcbddc";
+			else if ( vulnerable > 0 ) conditionalColor = "#dadaeb";
 				// no data
 			return (	color: "gray",
 						weight: 1,
@@ -103,7 +103,7 @@ $.getJSON("ChicagoHardshipIndex.geojson",function(data){
 						fillOpacity: 1, };
 		)},
 		onEachFeature: function( feature, Layer ){
-			layer.bindPopup("Neighborhodd: " + feature.properties.CA + "<br/>" + Hardship Index Score: + feature.properties.HI )}
+			layer.bindPopup("COVID_Vulnerability_Index_Zip " + feature.properties.CA + "<br/>" + Vulnerable Index: + feature.properties.VI )}
 		}
 	}).addTo(map).bringToback();
 });
